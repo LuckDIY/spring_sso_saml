@@ -1,0 +1,20 @@
+#spring.application.name=spring_sso_saml
+
+#logging.level.root=debug
+
+#spring.security.saml2.relyingparty.registration.okta.assertingparty.metadata-uri=https://dev-60686317.okta.com/app/exkntekpwvR5XckyO5d7/sso/saml/metadata
+
+spring:
+  application:
+    name: spring_sso_saml
+
+  security:
+    saml2:
+      relyingparty:
+        registration:
+            okta:
+              assertingparty:
+                metadata-uri: https://dev-60686317.okta.com/app/exkntekpwvR5XckyO5d7/sso/saml/metadata
+
+
+
