@@ -67,6 +67,11 @@ public class SecurityConfiguration {
             }
         });
 
+        http.oauth2Login(oauth2 -> oauth2
+                .defaultSuccessUrl("/home")
+        );
+
+
         return http.build();
     }
 

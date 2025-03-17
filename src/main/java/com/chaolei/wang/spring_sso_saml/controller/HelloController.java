@@ -40,4 +40,9 @@ public class HelloController {
         return SecurityContextHolder
                 .getContextHolderStrategy().getContext().getAuthentication();
     }
+
+    @GetMapping("home")
+    public String home(){
+        return "home";
+    }
 }

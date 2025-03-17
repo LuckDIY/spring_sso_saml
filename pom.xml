@@ -45,6 +45,13 @@
             <artifactId>spring-security-saml2-service-provider</artifactId>
         </dependency>
 
+        <!-- oauth2 client -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

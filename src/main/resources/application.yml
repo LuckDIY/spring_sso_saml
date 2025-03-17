@@ -15,6 +15,22 @@ spring:
             okta:
               assertingparty:
                 metadata-uri: https://dev-60686317.okta.com/app/exkntekpwvR5XckyO5d7/sso/saml/metadata
+    oauth2:
+      client:
+        registration:
+          gitee:
+            client-id: e855456e9993e2d086be53db096bd09fa14b71c7f0f824304048b36f5102c08e
+            client-secret: 89ec303934f10ba48dce6ea1c25fc03b29f005a2dcff9816d58dfd4091fc6b84
+            scope: user_info
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            client-name: Gitee
+        provider:
+          gitee:
+            authorization-uri: https://gitee.com/oauth/authorize
+            token-uri: https://gitee.com/oauth/token
+            user-info-uri: https://gitee.com/api/v5/user
+            user-name-attribute: name
 
 
 
