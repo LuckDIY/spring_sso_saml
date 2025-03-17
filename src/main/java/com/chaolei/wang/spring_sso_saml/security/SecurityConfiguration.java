@@ -1,8 +1,6 @@
 package com.chaolei.wang.spring_sso_saml.security;
 
 import com.chaolei.wang.spring_sso_saml.handle.JsonAccessDeniedHandler;
-import com.chaolei.wang.spring_sso_saml.handle.JsonAuthenticationEntryPoint;
-import com.chaolei.wang.spring_sso_saml.handle.JsonAuthenticationFailureHandler;
 import com.chaolei.wang.spring_sso_saml.manager.DiyInMemoryUserDetailsManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -12,25 +10,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.saml2.Saml2LoginConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.saml2.provider.service.registration.InMemoryRelyingPartyRegistrationRepository;
-import org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository;
-import org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrations;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpMessageConverterAuthenticationSuccessHandler;
-import org.springframework.util.StringUtils;
-
-import java.util.List;
-
-import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.security.saml2.provider.service.registration.Saml2MessageBinding.REDIRECT;
 
 @EnableMethodSecurity
 @Configuration
@@ -70,15 +56,16 @@ public class SecurityConfiguration {
         http.saml2Login(new Customizer<Saml2LoginConfigurer<HttpSecurity>>() {
             @Override
             public void customize(Saml2LoginConfigurer<HttpSecurity> httpSecuritySaml2LoginConfigurer) {
+                httpSecuritySaml2LoginConfigurer.defaultSuccessUrl("/user");
             }
         });
 
-        http.formLogin(form -> form
-                .loginPage("/login")  // 配置自定义登录页
-                .loginProcessingUrl("/login") // 处理普通表单登录的 URL
-                .defaultSuccessUrl("/user", true) // 登录成功后跳转
-                .permitAll()
-        );
+        http.formLogin(new Customizer<FormLoginConfigurer<HttpSecurity>>() {
+            @Override
+            public void customize(FormLoginConfigurer<HttpSecurity> httpSecurityFormLoginConfigurer) {
+                httpSecurityFormLoginConfigurer.defaultSuccessUrl("/hello");
+            }
+        });
 
         return http.build();
     }
